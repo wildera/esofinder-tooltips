@@ -1,0 +1,16 @@
+.esof{display:inline-block}
+.esof-tooltip{position:absolute}
+.esof-tooltip .tooltip-inner{min-width:315px;max-width:315px}
+.h-icon-link{border:0;width:50px;height:50px}
+.h-item{width:300px;margin:0 auto;font-family:Consolas,monaco,monospace;font-size:12px;color:#c5c29e;background-color:#000;text-align:center;border-radius:3px;border:2px solid #9f9b86;padding:8px}
+.h-info{color:#ffffff;margin-top:10px;text-align:right}
+.h-icon-border{margin:0 auto;width:50px;height:50px;border:2px solid #9f9b86}
+.h-icon-roundborder{border-radius:35px}
+.h-icon{margin:0 auto;width:50px;height:50px}
+.h-name{width:100%;color:#ffffff;font-weight:700;font-size:14px;margin-top:5px}
+.h-separator{width:90%;height:1px;margin:0 auto;background-color:#9f9b86;margin-top:5px;margin-bottom:5px}
+.h-points{font-weight:700;color:#ffffff}
+.h-description{margin-top:5px;width:100%}
+.h-criterions{margin-top:5px;width:100%;color:#ffffff;text-align:left}
+.h-health{color:#E30202;font-weight:bold}.h-magicka{color:#15b4ff;font-weight:bold}.h-stamina{color:#50de36;font-weight:bold}
+.h-white{color:#ffffff;font-weight:bold}.h-red{color:#E30202;font-weight:bold}.h-cyan{color:#22addc;font-weight:bold}
