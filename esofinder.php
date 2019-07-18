@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ESO Finder Tooltips
- * Plugin URI: https://github.com/wildera/esofinder-plugin
+ * Plugin URI: https://github.com/wildera/esofinder-tooltips
  * Description: Add tooltips on items from Elder Scrolls Online inside your posts/pages.
  * Version: 1.0
  * Author: WILDERA
@@ -41,7 +41,7 @@ function esoFinderScript() {
  * Replace ESOF shortcode by the html link + tooltip
 **/
 function esoFinderLink($params) {
-	// check transient first
+	// check transient/cache first
 	$transient = get_transient('esof_' . serialize($params));
 	if ($transient) {
 		return $transient;
@@ -88,8 +88,8 @@ function esoFinderLink($params) {
 	}
 	$a .= '</a>';
 	
-	// transient
-	set_transient('esof_' . serialize($params), $a, 7200);
+	// transient/cache for 4 hours
+	set_transient('esof_' . serialize($params), $a, 14400);
 	
 	return $a;
 }
