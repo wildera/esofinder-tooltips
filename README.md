@@ -10,7 +10,7 @@ To do so, and after activating the plugin, you have to use a custom shortcode in
 
 Where ***type*** being one of:
 
-**achievement** | **collectible** | **skill** | **set**
+**achievement** | **collectible** | **skill** | **set** | **recipe** | **consumable** | **furniture**
 
 And ***id*** being the ID of the item you want to add.
 
