@@ -7,6 +7,7 @@
 .h-icon-border{margin:0 auto;width:50px;height:50px;border:2px solid #9f9b86}
 .h-icon-roundborder{border-radius:35px}
 .h-icon{margin:0 auto;width:50px;height:50px}
+.h-title{color:#ffffff}.h-title:hover{color:#ffffff;text-decoration:underline}.h-title:visited{color:#ffffff}
 .h-name{font-family:Helvetica,sans-serif;font-size:15px;width:100%;color:#ffffff;font-weight:700;margin-top:5px}
 .h-separator{width:90%;height:1px;margin:0 auto;background-color:#9f9b86;margin-top:5px;margin-bottom:5px}
 .h-points{font-family:Helvetica,sans-serif;font-size:13px;font-weight:700;color:#ffffff}
