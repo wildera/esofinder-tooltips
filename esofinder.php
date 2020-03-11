@@ -40,12 +40,11 @@ function esoFinderLink($params) {
 	if ($transient) {
 		return $transient;
 	}
-	
+		
+	// get link parameters
 	if (!isset($params['link'])) {
 		return '[ESOF: No link provided]';
 	}
-	
-	// get link parameters
 	$link = explode('=', $params['link']);
 	if (sizeof($link) < 2) {
 		return '[ESOF: Wrong link provided]';	
@@ -62,30 +61,44 @@ function esoFinderLink($params) {
 		$esoLocale = explode('_', $locale)[0];
 	}
 	
-	// deduce type
+	// deduce type (dirty quick fix for furniture)
 	if ('furniture' !== $type) {
-		$type += 's';
+		$type .= 's';
 	}
 	
-	// request to hermaeus
-	$response = wp_remote_get('https://oghma.hermaeusmora.com/api/' . $esoLocale . '/tooltips/' . $type . '/' . $id);
+	// request to esofinder
+	$response = wp_remote_get('https://oghma.esofinder.com/api/' . $esoLocale . '/tooltips/' . $type . '/' . $id);
 	$json = json_decode(wp_remote_retrieve_body($response), true);
 	
 	if (!isset($json['name']) || !isset($json['tooltip'])) {
 		return '[ESOF: Item not found]';
 	}
 	
-	// build the html link with tooltip
-	$a = '<a class="esof" href="https://esofinder.com/' . $esoLocale . '/' . $type . 's/' . $id . '" target="_blank" rel="noopener" ';
-	$a .= 'data-toggle="tooltip" data-html="true" title="' . htmlspecialchars($json['tooltip']) . '">';
-	
-	// use icon if option and value are present otherwise use name
-	if (isset($params['icon']) && $params['icon'] == 'true' && isset($json['icon'])) {
-		$a .= '<img class="h-icon-link" src="https://static.hermaeusmora.com/' . str_replace('.dds', '.png', $json['icon']) . '">';
+	$esof = 'https://esofinder.com/' . $esoLocale . '/' . $type . '/' . $id;
+	$a = '';
+	if (isset($params['block']) && $params['block'] == 'true') {
+		// build and display the tooltip
+		$tooltip = $json['tooltip'];
+		$pos = strpos($tooltip, "<div class='h-name'>");
+		if ($pos !== false) {
+			$tooltip = substr_replace($tooltip, "<div class='h-name'><a class='h-title' href='" . $esof . "' target='_blank' rel='noopener'>", $pos, strlen("<div class='h-name'>"));
+			$pos = strpos($tooltip, "</div>");
+			$tooltip = substr_replace($tooltip, "</a></div>", $pos, strlen("</div>"));
+		}
+		
+		$a = $tooltip;
 	} else {
-		$a .= $json['name'];
+		// build the link and add the tooltip
+		$a = '<a class="esof" href="' . $esof . '" target="_blank" rel="noopener" ' . 'data-toggle="tooltip" data-html="true" title="' . htmlspecialchars($json['tooltip']) . '">';
+		
+		// use icon if option and value are present otherwise use name
+		if (isset($params['icon']) && $params['icon'] == 'true' && isset($json['icon'])) {
+			$a .= '<img class="h-icon-link" src="https://static.esofinder.com/' . str_replace('.dds', '.png', $json['icon']) . '">';
+		} else {
+			$a .= $json['name'];
+		}
+		$a .= '</a>';
 	}
-	$a .= '</a>';
 	
 	// transient/cache for 4 hours
 	set_transient('esof_' . serialize($params), $a, 14400);
